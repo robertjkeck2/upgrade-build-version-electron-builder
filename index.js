@@ -18,7 +18,7 @@ const findPackageJson = (path) => {
 };
 
 const writePackageJson = (path, content) => {
-    return fs.writeFileSync(join(path, 'package.json'), JSON.stringify(content));
+    return fs.writeFileSync(join(path, 'package.json'), JSON.stringify(content, null, 2));
 }
 
 const updateBuildVersion = (path) => {
