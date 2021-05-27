@@ -17,6 +17,10 @@ const findPackageJson = (path) => {
     return fs.readFileSync(join(path, 'package.json')).toString();
 };
 
+const writePackageJson = (path, content) => {
+    return fs.writeFileSync(join(path, 'package.json'), JSON.stringify(content));
+}
+
 const updateBuildVersion = (path) => {
     const packageJson = findPackageJson(path);
     let packageContent = JSON.parse(packageJson)
@@ -24,7 +28,7 @@ const updateBuildVersion = (path) => {
     if (oldVersion) {
         const newVersion = (parseInt(oldVersion) + 1).toString();
         packageContent.build.buildVersion = newVersion;
-        fs.writeFileSync(path, JSON.stringify(packageContent));
+        writePackageJson(path, packageContent);
         return newVersion;
     } else {
         throw 'Unable to find buildVersion in package.json';
