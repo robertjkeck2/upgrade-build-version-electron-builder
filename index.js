@@ -1,6 +1,6 @@
-import * as core from '@actions/core';
-import fs from 'fs';
-import { join } from 'path';
+const core = require('@actions/core');
+const fs = require('fs');
+const { join } = require('path');
 
 async function run() {
     try {
