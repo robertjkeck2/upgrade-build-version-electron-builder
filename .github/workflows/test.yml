@@ -9,8 +9,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-
+    - uses: actions/checkout@v2
+    
     - name: Install dependencies
       run: npm install
 
@@ -18,5 +18,11 @@ jobs:
       uses: ./
       id: version
 
-    - name: Get version
-      run: echo "Version is ${{ steps.version.outputs.version }}"
+    - name: Update buildVersion
+      run: echo "Build version is now ${{ steps.version.outputs.version }}"
+      
+    - name: Commit new buildVersion
+      run: |
+        git commit -am "Updated buildVersion to ${{ steps.version.outputs.version }}"
+        git push origin main
+
