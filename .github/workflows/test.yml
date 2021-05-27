@@ -23,6 +23,8 @@ jobs:
       
     - name: Commit new buildVersion
       run: |
+        git config --global user.email "robertjkeck2@gmail.com"
+        git config --global user.name "robertjkeck2"
         git commit -am "Updated buildVersion to ${{ steps.version.outputs.version }}"
         git push origin main
 
