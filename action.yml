@@ -1,0 +1,15 @@
+name: buildVersion bump for electron-builder
+description: Automated build version bump for electron-builder.
+branding:
+  icon: chevron-up
+  color: blue
+inputs:
+  path:
+    description: "Path of package.json"
+    default: "./"
+outputs:
+  version:
+    description: "New buildVersion for bundle"
+runs:
+  using: docker
+  image: Dockerfile
