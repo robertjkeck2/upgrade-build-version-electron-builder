@@ -24,13 +24,14 @@ const writePackageJson = (path, content) => {
 const updateBuildVersion = (path) => {
     const packageJson = findPackageJson(path);
     let packageContent = JSON.parse(packageJson)
-    const oldVersion = packageContent.build?.buildVersion;
-    if (oldVersion) {
+    let oldVersion;
+    try {
+        oldVersion = packageContent.build.buildVersion;
         const newVersion = (parseInt(oldVersion) + 1).toString();
         packageContent.build.buildVersion = newVersion;
         writePackageJson(path, packageContent);
         return newVersion;
-    } else {
+    } catch (e) {
         throw 'Unable to find buildVersion in package.json';
     }
 };
