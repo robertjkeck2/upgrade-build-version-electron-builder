@@ -28,6 +28,9 @@ const updateBuildVersion = (path, descriptor) => {
     try {
         const oldVersion = packageContent.build.buildVersion;
         const oldVersionNumber = oldVersion.split('-')[1];
+        if (!oldVersionNumber) {
+            oldVersionNumber = oldVersion;
+        }
         const newVersionNumber = (parseInt(oldVersionNumber) + 1).toString();
         let newVersion = newVersionNumber;
         if (descriptor.length > 0) {
