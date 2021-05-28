@@ -16,6 +16,8 @@ jobs:
 
     - name: Local action test
       uses: ./
+      with:
+        descriptor: test
       id: version
 
     - name: Update buildVersion
