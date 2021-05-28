@@ -7,6 +7,9 @@ inputs:
   path:
     description: "Path of package.json"
     default: "./"
+  descriptor:
+    description: "Descriptor for buildVersion (staging, wip, etc.)"
+    default: ""
 outputs:
   version:
     description: "New buildVersion for bundle"

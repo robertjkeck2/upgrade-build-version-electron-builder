@@ -5,8 +5,9 @@ const { join } = require('path');
 async function run() {
     try {
         const path = core.getInput('path');
+        const descriptor = core.getInput('descriptor');
         core.debug(`Load package.json at ${path}`);
-        const newVersion = updateBuildVersion(path);
+        const newVersion = updateBuildVersion(path, descriptor);
         core.setOutput('version', newVersion);
     } catch (error) {
         core.setFailed(error.message);
@@ -21,13 +22,17 @@ const writePackageJson = (path, content) => {
     return fs.writeFileSync(join(path, 'package.json'), JSON.stringify(content, null, 2));
 }
 
-const updateBuildVersion = (path) => {
+const updateBuildVersion = (path, descriptor) => {
     const packageJson = findPackageJson(path);
     let packageContent = JSON.parse(packageJson)
-    let oldVersion;
     try {
-        oldVersion = packageContent.build.buildVersion;
-        const newVersion = (parseInt(oldVersion) + 1).toString();
+        const oldVersion = packageContent.build.buildVersion;
+        const oldVersionNumber = oldVersion.split('-')[1];
+        const newVersionNumber = (parseInt(oldVersionNumber) + 1).toString();
+        let newVersion = newVersionNumber;
+        if (descriptor.length > 0) {
+            newVersion = descriptor + '-' + newVersionNumber;
+        }
         packageContent.build.buildVersion = newVersion;
         writePackageJson(path, packageContent);
         return newVersion;
