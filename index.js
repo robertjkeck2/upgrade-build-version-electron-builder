@@ -27,7 +27,7 @@ const updateBuildVersion = (path, descriptor) => {
     let packageContent = JSON.parse(packageJson)
     try {
         const oldVersion = packageContent.build.buildVersion;
-        const oldVersionNumber = oldVersion.split('-')[1];
+        let oldVersionNumber = oldVersion.split('-')[1];
         if (!oldVersionNumber) {
             oldVersionNumber = oldVersion;
         }
